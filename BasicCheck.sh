@@ -64,5 +64,5 @@ fi;
 echo "Compilation	Memory leaks	Thread race"
 echo $compilationAns	$valgrindAns	$helgrindAns	
 
-#echo $retVal
+echo $retVal
 exit $retVal
