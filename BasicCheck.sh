@@ -2,7 +2,6 @@
 
 folderName=$1
 executable=$2
-currentLocation="pwd"
 
 #find in the dir path the makefile 
 cd "$folderName"
