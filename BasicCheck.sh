@@ -20,7 +20,7 @@ fi;
 
 
 #run the makefile
-make 
+make >/dev/null 2>&1
 sucssefullMake=$?
 
 
@@ -33,13 +33,13 @@ exit 4
 fi;
 
 #run valgrind and change the deafult return value to be 1 if occurd an error
-valgrind --tool=memcheck --leak-check=full --error-exitcode=1 ./"$executable" $@  
+valgrind --tool=memcheck --leak-check=full --error-exitcode=1 ./"$executable" $@  >/dev/null 2>&1
 
 valgrindReturn=$?
 
 
 #run helgrind for threads debug
-valgrind --tool=helgrind --error-exitcode=1 ./"$executable" $@  
+valgrind --tool=helgrind --error-exitcode=1 ./"$executable" $@  #>/dev/null 2>&1
 helgrindReturn=$?
 
 #the return value of all the script will be:
