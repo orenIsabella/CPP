@@ -14,7 +14,7 @@ if (($findMake>0)); then
 	echo "no MakeFile found"
 	echo "Compilation	Memory leaks	Thread race"
 	echo "FAIL		FAIL		FAIL		"
-exit 4
+exit 7
 fi;
 
 
@@ -29,7 +29,7 @@ if (($sucssefullMake>0)); then
 	echo "error in compilation"
 	echo "Compilation	Memory leaks	Thread race"
 	echo "FAIL		FAIL		FAIL		"
-exit 4
+exit 7
 fi;
 
 #run valgrind and change the deafult return value to be 1 if occurd an error
