@@ -3,6 +3,7 @@
 folderName=$1
 executable=$2
 
+
 #find in the dir path the makefile 
 cd "$folderName"
 find . -name MakeFile
@@ -28,7 +29,7 @@ echo "valgrindReturn = " $valgrindReturn
 
 
 #run helgrind for threads debug
-valgrind --tool=helgrind ./"$executable" $@
+valgrind --tool=helgrind --error-exitcode=1 ./"$executable" $@
 helgrindReturn=$?
 echo "helgrindReturn = " $helgrindReturn
 
@@ -46,23 +47,23 @@ fi;
 
 
 if (($valgrindReturn>0)); then
-	valgrindAns="FAIL	"
+	valgrindAns="	FAIL	"
 	((retVal+=2))
 else 
-	valgrindAns="PASS	"
+	valgrindAns="	PASS	"
 fi;
 
 
 if (($helgrindReturn>0)); then
-	helgrindAns="FAIL"
+	helgrindAns="	FAIL"
 	((retVal+=1))
 else 
-	helgrindAns="PASS"
+	helgrindAns="	PASS"
 fi;
 
 
 echo "Compilation	Memory leaks	Thread race"
-echo $compilationAns	$valgrindAns	$helgrindAns	
+echo $compilationAns "		" $valgrindAns "		" $helgrindAns	
 
 echo $retVal
 exit $retVal
