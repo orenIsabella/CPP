@@ -39,7 +39,7 @@ retVal=0;
 
 if (($sucssefullMake>0)); then
 	compilationAns="FAIL	"
-	retVal+=4
+	((retVal+=4))
 else 
 	compilationAns="PASS	"
 fi;
@@ -47,7 +47,7 @@ fi;
 
 if (($valgrindReturn>0)); then
 	valgrindAns="FAIL	"
-	retVal+=2
+	((retVal+=2))
 else 
 	valgrindAns="PASS	"
 fi;
@@ -55,7 +55,7 @@ fi;
 
 if (($helgrindReturn>0)); then
 	helgrindAns="FAIL"
-	retVal+=1
+	((retVal+=1))
 else 
 	helgrindAns="PASS"
 fi;
