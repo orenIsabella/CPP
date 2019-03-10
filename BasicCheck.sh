@@ -9,10 +9,14 @@ cd "$folderName"
 find . -name MakeFile
 findMake=$?
 
-if (($findMake>0)); then
-	echo "Does not exist makefile, exit"
-	exit 1;
+#if there is no makefile finish the run
+if (($findMake>0)); then 
+	echo "no MakeFile found"
+	echo "Compilation	Memory leaks	Thread race"
+	echo "FAIL		FAIL		FAIL		"
+exit 4
 fi;
+
 
 
 #run the makefile
@@ -20,18 +24,23 @@ make
 sucssefullMake=$?
 
 
+#if there is compilation error finish the run
+if (($sucssefullMake>0)); then 
+	echo "error in compilation"
+	echo "Compilation	Memory leaks	Thread race"
+	echo "FAIL		FAIL		FAIL		"
+exit 4
+fi;
 
 #run valgrind and change the deafult return value to be 1 if occurd an error
-valgrind --tool=memcheck --leak-check=full --error-exitcode=1 ./"$executable" $@
+valgrind --tool=memcheck --leak-check=full --error-exitcode=1 ./"$executable" $@  
 
 valgrindReturn=$?
-echo "valgrindReturn = " $valgrindReturn
 
 
 #run helgrind for threads debug
-valgrind --tool=helgrind --error-exitcode=1 ./"$executable" $@
+valgrind --tool=helgrind --error-exitcode=1 ./"$executable" $@  
 helgrindReturn=$?
-echo "helgrindReturn = " $helgrindReturn
 
 #the return value of all the script will be:
 # 0 if all the checks pass
@@ -63,7 +72,10 @@ fi;
 
 
 echo "Compilation	Memory leaks	Thread race"
-echo $compilationAns "		" $valgrindAns "		" $helgrindAns	
+echo $compilationAns "		" $valgrindAns " 		" $helgrindAns	
+
+#return to the previous directory
+cd - >/dev/null 2>&1
 
 echo $retVal
 exit $retVal
