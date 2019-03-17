@@ -6,18 +6,6 @@ executable=$2
 
 #find in the dir path the makefile 
 cd "$folderName"
-find . -name MakeFile
-findMake=$?
-
-#if there is no makefile finish the run
-if (($findMake>0)); then 
-	echo "no MakeFile found"
-	echo "Compilation	Memory leaks	Thread race"
-	echo "FAIL		FAIL		FAIL		"
-exit 7
-fi;
-
-
 
 #run the makefile
 make >/dev/null 2>&1
